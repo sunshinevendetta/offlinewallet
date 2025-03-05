@@ -1,0 +1,23 @@
+name: Build MacOS App
+
+on: [push]
+
+jobs:
+  build:
+    runs-on: macos-latest
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v3
+
+      - name: Install dependencies
+        run: pip install -r requirements.txt pyinstaller
+
+      - name: Build app
+        run: pyinstaller --onefile --windowed --name "offlinewallet_v1" offlinewallet.py
+
+      - name: Upload build artifact
+        uses: actions/upload-artifact@v3
+        with:
+          name: wallet_generator_mac
+          path: dist/wallet_generator
