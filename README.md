@@ -1,89 +1,138 @@
-# Offline Wallet Generator v1.0
+## **Offline Wallet Generator v1.0**  
+_A truly offline, encrypted, secure, and easy-to-use wallet generator._
 
-## 🚀 Why This Exists
+### **Why This Exists**
+Most wallet generators just throw your seed phrase or private key into a plain text file with **zero protection**. If someone gets their hands on that file, that’s it—your access is gone. No second chances. That’s **a joke**.  
+I built this to **not be a joke**.
 
-most wallet generators just dump your seed phrase or private key in a plain text file with zero protection. if someone gets their hands on that file, that's it. your access is gone. no second chances. joke software. so i built this to not be a joke.
+Most wallets **don’t encrypt your keys** when generating them. If you lose the file or someone gets it, **you’re done**. And saving it in a Google Drive or cloud service? That’s a **big no**.  
 
-most wallets don’t encrypt your keys when generating them. if you lose that file or someone gets it, you’re finished. saving it on google drive or any cloud service is a **big no**. but if the file is **encrypted**, you can save it anywhere because nobody but you can decrypt it.
-
-sometimes you need **thousands** of wallets for whatever reason. maybe you’re spreading funds across multiple addresses. maybe you just like being paranoid. either way, doing this manually is stupid. this lets you **generate mass wallets in one click**.
-
-built for **security-first** crypto users.
-
-## 🔥 Features
-
-- **Generate Unlimited Wallets** → Seed phrases or private keys
-- **Encryption Built-in** → No raw keys lying around
-- **Three Security Levels**:
-  - **No password** (not recommended)
-  - **Password-only encryption**
-  - **Password + 2FA encryption** (best)
-- **Multi-Format Export** → Save as JSON, CSV, or TXT
-- **Offline** → No tracking, no bullshit, just local wallet generation
-- **Two Encryption Algorithms**:
-  - **AES-256**
-  - **ChaCha20-Poly1305**
-- **Fast & Lightweight** → No dependencies beyond the required libraries
-
-## 🔑 How It Works
-
-1. **Choose wallet type** → Private key or Seed phrase  
-2. **Select quantity** → Generate 1 to 10,000 wallets  
-3. **Set security level** → No password, Password-only, or Password + 2FA  
-4. **Save encrypted wallet file** → Store it anywhere, even cloud  
-5. **Decrypt only when needed** → Using the app, import into any wallet  
-
-## 🔒 Encryption Explained
-
-the whole point of this tool is **never exposing raw keys**.  
-
-when you generate wallets, the output is **encrypted** before saving.  
-if you **set a password**, it uses **Argon2id** to derive a strong key.  
-if you enable **2FA**, even if someone gets the file **they also need your live TOTP code**.  
-
-each file stores:
-- **Wallet Data** → Private key / Seed phrase
-- **Encryption Method** → AES-256 or ChaCha20-Poly1305
-- **HMAC-SHA256** → Ensures file integrity, prevents tampering  
-
-this means even if someone gets your encrypted file, they can’t do **shit** without your credentials.  
-
-## 💻 Usage
-
-### **Generating Wallets**
-1. **Run the app**  
-2. **Select Wallet Type** → Private Key / Seed Phrase  
-3. **Set Number of Wallets**  
-4. **Choose Encryption** → No password / Password / Password + 2FA  
-5. **Save File** → Encrypted file stored locally  
-
-### **Decrypting & Importing**
-1. **Run the app**  
-2. **Load the Encrypted File**  
-3. **Enter Password & 2FA (if enabled)**  
-4. **View Wallets & Export**  
-
-## 📁 File Formats
-
-- `.enc` → Default encrypted file
-- `.json` → Structured JSON export
-- `.csv` → Spreadsheet-compatible
-- `.txt` → Raw readable format
-
-## 🛠 Supported Platforms
-
-- **Windows**
-- **MacOS**
-- **Linux**
-- **Android (via Python scripting)**
-
-## ⚡ Open Source & No Tracking
-
-this is **100% offline**. no telemetry, no data collection, no logs. you generate wallets, you store them however you want. nobody gets to mess with your keys except **you**.
-
-🔗 **[GitHub Repo](https://github.com/sunshinevendetta/offlinewallet.git)**  
+But **if the file is encrypted**, then hell yeah, you can store it anywhere. Nobody except **you** can decrypt it.
 
 ---
 
-**made for those who actually care about keeping their crypto secure.**  
-**use it, share it, improve it.**
+## **What This Does**
+- Generates **private keys** or **seed phrases** securely.
+- Encrypts the output with **Argon2 + AES-256** or **ChaCha20-Poly1305**.
+- Supports **password encryption** and optional **2FA authentication** for decryption.
+- Saves wallets in **JSON, CSV, or TXT** format.
+- Works **fully offline**—no tracking, no leaks, **your keys, your rules**.
+
+---
+
+## **How It Works**
+1. **Choose Private Key or Seed Phrase** generation.
+2. **Pick how many wallets** to generate (1-10,000).
+3. **Set a password** (optional) or use **password + 2FA** for extra security.
+4. **Save the encrypted file** (nobody can steal your keys).
+5. **Decrypt later** only if you have the correct password (and 2FA if enabled).
+6. **Import your wallet** into any standard crypto wallet app.
+
+---
+
+## **How To Use**
+### **1. Download & Run the App**
+- **Windows**: [Download `offlinewallet.exe`](https://github.com/sunshinevendetta/offlinewallet/releases/latest)  
+- **MacOS**: [Download `offlinewallet.dmg`](https://github.com/sunshinevendetta/offlinewallet/releases/latest)  
+- **Linux**: Coming soon
+
+### **2. Run It Manually (If You Prefer)**
+If you don’t want to use the prebuilt app, you can **run it manually**. Here’s what you need.
+
+#### **Requirements**
+- **Python 3.10+**
+- Required Python Libraries:
+  ```sh
+  pip install -r requirements.txt
+  ```
+  If you don’t have `requirements.txt`, manually install:
+  ```sh
+  pip install pyqt5 cryptography argon2-cffi eth-account mnemonic qrcode zxcvbn pyotp
+  ```
+
+#### **Run the app**
+```sh
+python offlinewallet.py
+```
+
+---
+
+## **For Developers: Build It Yourself**
+If you want to compile your own `.exe` or `.app`, here’s how.
+
+### **Windows (Build .exe)**
+1. Install dependencies:
+   ```sh
+   pip install pyinstaller
+   ```
+2. Run:
+   ```sh
+   pyinstaller --onefile --windowed --name "offlinewallet" offlinewallet.py
+   ```
+3. The `.exe` will be in the **`dist/`** folder.
+
+---
+
+### **MacOS (Build .app)**
+1. Install `py2app`:
+   ```sh
+   pip install py2app
+   ```
+2. Use this `setup.py`:
+   ```python
+   from setuptools import setup
+   APP = ['offlinewallet.py']
+   OPTIONS = {
+       'argv_emulation': True,
+       'packages': ['PyQt5', 'cryptography', 'argon2', 'argon2_cffi', 'eth_account', 'mnemonic', 'qrcode', 'zxcvbn', 'pyotp'],
+       'excludes': ['tkinter'],
+       'plist': {
+           'CFBundleName': 'OfflineWallet',
+           'CFBundleVersion': '1.0.0',
+           'NSHighResolutionCapable': 'True'
+       }
+   }
+   setup(app=APP, options={'py2app': OPTIONS}, setup_requires=['py2app'])
+   ```
+3. Build it:
+   ```sh
+   python setup.py py2app
+   ```
+4. Your `.app` will be in `dist/OfflineWallet.app`
+
+---
+
+## **Security Features**
+- **Argon2 Key Derivation** (slow & secure, resistant to brute force).
+- **AES-256 or ChaCha20-Poly1305** encryption.
+- **HMAC integrity check** (detects tampering).
+- **Optional 2FA** (time-based one-time passwords).
+- **No internet connection required** (fully offline).
+
+---
+
+## **FAQ**
+**Q: Why not use a browser-based generator?**  
+A: **Hell no.** Web-based generators **can leak your keys**. You should never generate wallets on a website.
+
+**Q: Can I store my encrypted file in Google Drive?**  
+A: **Yes,** but only if you enabled password encryption. Without it, your file is as good as stolen.
+
+**Q: What if I lose my password?**  
+A: **Game over.** There’s **no recovery**. You must store it securely.
+
+**Q: Why include 2FA?**  
+A: Even if someone steals your encrypted file **and** cracks your password, **they still need your real-time 2FA code**.
+
+---
+
+## **Final Notes**
+- **Your keys, your responsibility.** If you mess up, **nobody can help you.**
+- **No backdoors, no recovery.** That’s the price of true security.
+- **Use at your own risk.** I made this for myself, you get to use it **if you know what you're doing**.
+
+---
+
+💀 **Made by [SunshineVendetta](https://x.com/sunshinevndetta)** | No tracking | No spyware | No BS  
+💰 Donations: `0x3eCa5f038A7f32367d03A0385534ffC918E2342b`  
+🚀 **Download & Stay Safe:** [Github Releases](https://github.com/sunshinevendetta/offlinewallet/releases/latest)  
